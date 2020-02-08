@@ -6,7 +6,7 @@ const rules = require('../constants/rules');
 const propertyType = require('../constants/propertyType');
 const floors = require('../constants/floors');
 const doors = require('../constants/doors');
-const states = require('../constants/states'),
+const states = require('../constants/states');
 
 const propertySchema = new mongoose.Schema({
   user: {

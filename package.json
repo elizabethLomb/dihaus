@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "portal for buying and rental places",
   "main": "app.js",
-  "scripts": {
+	"scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
+    "dev": "nodemon -e hbs,js,css app.js",
     "seeds": "node ./bin/seeds"
-  },
+	},
   "author": "Elizabeth Lombardi",
   "license": "ISC",
   "dependencies": {

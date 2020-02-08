@@ -23,9 +23,9 @@ const userSchema = new mongoose.Schema({
     minlength: [3, 'Min 3 carácteres'],
     trim: true
   },
-  birthday: {
-    type: Date
-  },
+  // birthday: {
+  //   type: Date
+  // },
   email: {
     type: String,
     required: [true, 'Requerido'],
@@ -99,3 +99,20 @@ userSchema.virtual('properties', {
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
+
+/*
+{
+  "userType": "Particular",
+  "name": "eli",
+  "lastname": "lombs",
+  "email": "hola@hola.com",
+  "password": "123456789",
+  "avatar": "",
+  "bio": "aaaaaaa"
+}
+
+{
+  "email": "hola@hola.com",
+  "password": "123456789"
+}
+*/
