@@ -15,7 +15,8 @@ const floors = [
   'Planta 8º',
   'Planta 9º',
   'Planta 10º',
-  'Por encima de la décima planta'
+  'Por encima de la décima planta',
+  'Última planta'
 ];
 
 module.exports = floors;

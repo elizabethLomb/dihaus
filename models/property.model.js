@@ -32,11 +32,11 @@ const propertySchema = new mongoose.Schema({
     type: {
       type: String, // Don't do `{ location: { type: String } }`
       enum: ['Point'], // 'location.type' must be 'Point'
-      required: true
+      //required: true
     },
     coordinates: {
       type: Number,
-      required: true
+      //required: true
     }
   },
   address: {
@@ -62,7 +62,7 @@ const propertySchema = new mongoose.Schema({
     enum: ['Interior', 'Exterior']
   },
   comforts: {
-    type: String,
+    type: [String],
     enum: comforts,
     required: true,
   },
@@ -90,7 +90,7 @@ const propertySchema = new mongoose.Schema({
     required: true
   },
   rules: {
-    type: String,
+    type: [String],
     enum: rules,
     required: true,
   },
@@ -100,7 +100,7 @@ const propertySchema = new mongoose.Schema({
   },
   conditions: {
     deposit: {
-      type: String,
+      type: [String],
       default: '1 Mes de Fianza',
       required: true
     },
@@ -135,3 +135,76 @@ propertySchema.virtual('comments', {
 
 const Property = mongoose.model('Property', propertySchema);
 module.exports = Property;
+
+/*
+{
+  "propertyType": "Piso",
+  "title": "Bueno, bonito y barato",
+  "price": 550,
+  "location": "",
+  "address": "Madrid",
+  "type": "Alquiler",
+  "description": "Hola esta es una prueba",
+  "size": 80,
+  "facade": "Exterior",
+  "comforts": ["TV", "Terraza", "Calefacción", "Piscina", "Entrada independiente"],
+  "state": "A estrenar",
+  "rooms": 3,
+  "floor": "Última planta",
+  "door": "Exterior Derecha",
+  "bathrooms": 3,
+  "rules": ["Se permite fumar", "Se permite mascotas"],
+  "images": "",
+  "conditions": {
+    "deposit": "2 Meses",
+    "availability": "1985-01-23",
+    "minPermanence": "2 años",
+    "maxPermanence": "indefinido",
+    "energeticCertification": "None"
+  }
+}
+
+//creada
+{
+    "conditions": {
+        "deposit": [
+            "2 Meses"
+        ],
+        "availability": "1985-01-23T00:00:00.000Z",
+        "minPermanence": "2 años",
+        "maxPermanence": "indefinido",
+        "energeticCertification": "None"
+    },
+    "comforts": [
+        "TV",
+        "Terraza",
+        "Portero",
+        "Piscina",
+        "Entrada independiente"
+    ],
+    "rules": [
+        "Se permite fumar",
+        "Se permite mascotas"
+    ],
+    "images": null,
+    "user": "5e41776a6f8cfd5f47ff570b",
+    "propertyType": "Piso",
+    "title": "Bueno, bonito y barato",
+    "price": 550,
+    "address": "Madrid",
+    "type": "Alquiler",
+    "description": "Hola esta es una prueba",
+    "size": 80,
+    "facade": "Exterior",
+    "state": "Buen estado",
+    "rooms": 3,
+    "floor": "Última planta",
+    "door": "Exterior Derecha",
+    "bathrooms": 3,
+    "createdAt": "2020-02-10T16:20:27.674Z",
+    "updatedAt": "2020-02-10T16:20:27.674Z",
+    "id": "5e4182cb5cb68361bc1898bc"
+}
+
+
+ */
