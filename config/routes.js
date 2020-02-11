@@ -14,7 +14,7 @@ module.exports = router;
 router.get('/', controller.base);
 
 //create property
-router.post('/property/new', propertiesController.create);
+router.post('/become-a-hauser', propertiesController.create);
 
 //registro usuario
 router.post('/user/register', authMiddleware.isNotAuthenticated, upload.single('avatar'), usersController.register);
@@ -24,3 +24,6 @@ router.get('/user/:id', authMiddleware.isAuthenticated, usersController.profile)
 router.post('/login', authMiddleware.isNotAuthenticated, usersController.doLogin)
 //logout
 router.post('/logout', authMiddleware.isAuthenticated, usersController.logout)
+
+//list property by location
+router.get('/:location/homes', propertiesController.list);

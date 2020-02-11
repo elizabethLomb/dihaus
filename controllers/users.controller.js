@@ -33,7 +33,7 @@ module.exports.profile = (req, res, next) => {
 
   .then(user => {
     if (user) {
-      //res.render('users/profile', { user, properties: user.properties })
+      console.log('user----->', user)
       res.json(user)
     } else {
       req.session.genericError = 'user not found'
