@@ -19,11 +19,16 @@ router.post('/become-a-hauser', propertiesController.create);
 //registro usuario
 router.post('/user/register', authMiddleware.isNotAuthenticated, upload.single('avatar'), usersController.register);
 //perfil usuario
-router.get('/user/:id', authMiddleware.isAuthenticated, usersController.profile);
-//login
-router.post('/login', authMiddleware.isNotAuthenticated, usersController.doLogin)
-//logout
-router.post('/logout', authMiddleware.isAuthenticated, usersController.logout)
+router.get('/user/:id', usersController.profile);
 
+//login
+router.post('/login', authMiddleware.isNotAuthenticated, usersController.doLogin);
+//logout
+router.post('/logout', authMiddleware.isAuthenticated, usersController.logout);
+
+//reservar
+router.post('/booking_id/:id', authMiddleware.isAuthenticated, propertiesController.booking)
+//detail property
+router.get('/home/:id', propertiesController.detail);
 //list property by location
 router.get('/:location/homes', propertiesController.list);

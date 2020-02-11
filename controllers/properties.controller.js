@@ -54,3 +54,35 @@ module.exports.list = (req, res, next) => {
     res.json(properties)
   }).catch(next)
 }
+
+//get detail of property
+module.exports.detail = (req, res, next) => {
+  Property.findById(req.params.id)
+  .populate('user')
+  // .populate({
+  //   path: 'comments',
+  //   options: {
+  //     sort: {
+  //       createdAt: -1
+  //     }
+  //   },
+  //   populate: {
+  //     path: 'user'
+  //   }
+  // })
+  .then(property => {
+    res.json(property)
+  }).catch(next)
+}
+
+//intento de reservar, display rules
+module.exports.booking = (req, res, next) =>{
+  //const params = { property: req.params.id, user: req.currentUser.id }
+//const booking = new Booking({...req.body, property: req.params.id}) //SAVE
+
+
+  // .then(property => {
+  //   res.json({ success: true })
+  // }).catch(next)
+}
+

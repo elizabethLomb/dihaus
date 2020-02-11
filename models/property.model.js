@@ -95,8 +95,12 @@ const propertySchema = new mongoose.Schema({
     enum: rules,
     required: true,
   },
+  featuredImage: {
+    type: String,
+    required: true
+  },
   images: {
-    type: [String],
+    type: String,
     default: ''
   },
   conditions: {
@@ -127,8 +131,8 @@ const propertySchema = new mongoose.Schema({
   }
 })
 
-propertySchema.virtual('comments', {
-  ref: 'Comment',
+propertySchema.virtual('bookings', {
+  ref: 'Booking',
   localField: '_id',
   foreignField: 'property',
   justOne: false,

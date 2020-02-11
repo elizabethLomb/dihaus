@@ -7,7 +7,7 @@ const commentSchema = new mongoose.Schema({
     ref: 'User',
     required: true
   },
-  tweet: {
+  property: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Property',
     required: true
@@ -26,5 +26,4 @@ const commentSchema = new mongoose.Schema({
 })
 
 const Comment = mongoose.model('Comment', commentSchema);
-
 module.exports = Comment;
