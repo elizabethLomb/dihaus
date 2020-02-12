@@ -1,5 +1,6 @@
 const Property = require('../models/property.model');
-const User = require('../models/user.model');
+const Booking = require('../models/booking.model');
+const Contact = require('../models/contact.model');
 
 //crear una nueva propiedad
 module.exports.create = (req, res, next) => {
@@ -75,14 +76,28 @@ module.exports.detail = (req, res, next) => {
   }).catch(next)
 }
 
-//intento de reservar, display rules
+//resrva visita property, display rules and form
 module.exports.booking = (req, res, next) =>{
-  //const params = { property: req.params.id, user: req.currentUser.id }
-//const booking = new Booking({...req.body, property: req.params.id}) //SAVE
+  const booking = new Booking({...req.body, property: req.params.id})
+  booking.save()
 
+  .then(booking => {
+    console.log(booking)
+    res.json(booking)
+  }).catch(next)
+}
 
-  // .then(property => {
-  //   res.json({ success: true })
-  // }).catch(next)
+module.exports.contact = (req, res, next) => {
+  const propertyId = req.params.id
+  const contact = new Contact({
+    text: req.body.text,
+    user: req.currentUser.id,
+    property: propertyId
+  })
+  contact.save()
+  
+  .then(contact => {
+    res.json(contact)
+  }).catch(next)
 }
 

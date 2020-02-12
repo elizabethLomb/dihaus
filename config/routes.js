@@ -28,6 +28,8 @@ router.post('/logout', authMiddleware.isAuthenticated, usersController.logout);
 
 //reservar
 router.post('/booking_id/:id', authMiddleware.isAuthenticated, propertiesController.booking)
+//contacto usuario property
+router.post('/contact_hauser/:id', )
 //detail property
 router.get('/home/:id', propertiesController.detail);
 //list property by location
