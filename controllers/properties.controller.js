@@ -97,6 +97,7 @@ module.exports.contact = (req, res, next) => {
   contact.save()
   
   .then(contact => {
+    console.log('Contact--->', contact)
     res.json(contact)
   }).catch(next)
 }
