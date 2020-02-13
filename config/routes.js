@@ -27,7 +27,7 @@ router.post('/login', authMiddleware.isNotAuthenticated, usersController.doLogin
 router.post('/logout', authMiddleware.isAuthenticated, usersController.logout);
 
 //contacto usuario property
-router.post('/contact_hauser/:id', )
+router.post('/contact_hauser/:id', propertiesController.contact)
 
 //reservar
 router.post('/booking_id/:id', authMiddleware.isAuthenticated, propertiesController.booking)
