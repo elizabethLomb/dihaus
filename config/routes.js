@@ -18,7 +18,11 @@ router.post('/become-a-hauser', propertiesController.create);
 
 //registro usuario
 router.post('/user/register', authMiddleware.isNotAuthenticated, upload.single('avatar'), usersController.register);
-//perfil usuario
+
+//comentario a usuario
+router.post('/user/:id/comments', usersController.addComment)
+
+//user profile
 router.get('/user/:id', usersController.profile);
 
 //login

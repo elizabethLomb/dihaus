@@ -1,5 +1,6 @@
-const User = require('../models/user.model');
 const createError = require('http-errors');
+const User = require('../models/user.model');
+const Comment = require('../models/comment.model');
 
 //registro de usuario
 module.exports.register = (req, res, next) => {
@@ -23,12 +24,18 @@ module.exports.register = (req, res, next) => {
 
 //perfil del usuario
 module.exports.profile = (req, res, next) => {
-  User.findOne({ username: req.params.username })
+  User.findOne({ id: req.params.id })
   .populate({
     path: 'properties',
     populate: {
       path: 'user'
-    }
+    },
+    path: 'comments',
+      options: {
+        sort: {
+          createdAt: -1
+        }
+      }
   })
 
   .then(user => {
@@ -41,6 +48,20 @@ module.exports.profile = (req, res, next) => {
     }
   })
   .catch(next)
+}
+
+module.exports.addComment = (req, res, next) => {
+  const comment = new Comment({
+    text: req.body.text,
+    fromUser: req.currentUser.id,
+    toUser: req.params.id
+  })
+
+  comment.save()
+  .then(comment => {
+    console.log('Comment ----->', comment)
+    res.json(comment)
+  }).catch(next)
 }
 
 //login

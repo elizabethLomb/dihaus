@@ -2,14 +2,14 @@ const mongoose = require('mongoose');
 
 const commentSchema = new mongoose.Schema({
   text: String,
-  user: {
+  fromUser: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
   },
-  property: {
+  toUser: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'Property',
+    ref: 'User',
     required: true
   }
 }, {
