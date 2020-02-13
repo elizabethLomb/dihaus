@@ -19,12 +19,6 @@ router.post('/become-a-hauser', propertiesController.create);
 //registro usuario
 router.post('/user/register', authMiddleware.isNotAuthenticated, upload.single('avatar'), usersController.register);
 
-//comentario a usuario
-router.post('/user/:id/comments', usersController.addComment)
-
-//user profile
-router.get('/user/:id', usersController.profile);
-
 //login
 router.post('/login', authMiddleware.isNotAuthenticated, usersController.doLogin);
 //logout
@@ -35,6 +29,15 @@ router.post('/contact_hauser/:id', propertiesController.contact)
 
 //reservar
 router.post('/booking_id/:id', authMiddleware.isAuthenticated, propertiesController.booking)
+
+//get user messages
+router.get('/user/inbox/:id', usersController.inbox);
+
+//user profile
+router.get('/user/:id', usersController.profile);
+
+//comentario a usuario
+router.post('/user/:id/comments', usersController.addComment)
 
 //detail property
 router.get('/home/:id', propertiesController.detail);

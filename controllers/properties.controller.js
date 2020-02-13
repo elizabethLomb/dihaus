@@ -49,9 +49,6 @@ module.exports.list = (req, res, next) => {
   .sort({ createdAt: -1 })
 
   .then(properties => {
-    console.log('params-->', params)
-    console.log('location-->', location)
-    console.log('properties-->', properties)
     res.json(properties)
   }).catch(next)
 }
@@ -101,4 +98,5 @@ module.exports.contact = (req, res, next) => {
     res.json(contact)
   }).catch(next)
 }
+
 

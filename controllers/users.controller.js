@@ -1,6 +1,7 @@
 const createError = require('http-errors');
 const User = require('../models/user.model');
 const Comment = require('../models/comment.model');
+const Property = require('../models/property.model');
 
 //registro de usuario
 module.exports.register = (req, res, next) => {
@@ -24,7 +25,7 @@ module.exports.register = (req, res, next) => {
 
 //perfil del usuario
 module.exports.profile = (req, res, next) => {
-  User.findOne({ id: req.params.id })
+  User.findById(req.params.id)
   .populate({
     path: 'properties',
     populate: {
@@ -61,6 +62,16 @@ module.exports.addComment = (req, res, next) => {
   .then(comment => {
     console.log('Comment ----->', comment)
     res.json(comment)
+  }).catch(next)
+}
+
+module.exports.inbox = (req, res, next) => {
+  User.findById(req.params.id)
+  .populate('contact')
+
+  .then(contacts => {
+    console.log(contacts)
+    res.json(contacts)
   }).catch(next)
 }
 
