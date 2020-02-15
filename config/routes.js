@@ -14,7 +14,7 @@ module.exports = router;
 router.get('/', controller.base);
 
 //create property
-router.post('/become-a-hauser', propertiesController.create);
+router.post('/become-a-dihauser', propertiesController.create);
 
 //registro usuario
 router.post('/user/register', authMiddleware.isNotAuthenticated, upload.single('avatar'), usersController.register);
@@ -29,6 +29,12 @@ router.post('/contact_hauser/:id', propertiesController.contact)
 
 //reservar
 router.post('/booking_id/:id', authMiddleware.isAuthenticated, propertiesController.booking)
+
+//listado reservas hauser con propiedades
+router.get('/user/:id/booking-list', usersController.bookingList);
+
+//listado reservas usuario noHauser
+// router.get('/user/:id/booking-list', usersController.bookingList);
 
 //get user messages
 router.get('/user/inbox/:id', usersController.inbox);

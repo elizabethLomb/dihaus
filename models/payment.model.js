@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
-const bookingSchema = new mongoose.Schema({
-  fromUser: {
+const paymentSchema = new mongoose.Schema({
+  user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true
@@ -11,20 +11,30 @@ const bookingSchema = new mongoose.Schema({
     ref: 'Property',
     required: true
   },
-  status: {
-    type: String,
-    required: true,
-    enum: ['Pendiente', 'Cancelada', 'Aprobada', 'Activa', 'Completada'],
-    default: 'Pendiente'
-  },
-  date: {
-    type: Date,
-    default: Date.now,
-    required: [true, "Seleccione una fecha para continuar"]
-  },
-  time: {
+  cardNumber: {
     type: Number,
-    required: [true, "Seleccione una hora para continuar"]
+    required: true,
+  },
+  cardType: {
+    type: String,
+    enum: ['AmEx', 'Maes', 'Visa'],
+    required: true
+  },
+  cardName: {
+    type: String,
+    required: true
+  },
+  cardMonth: {
+    type: Number,
+    required: trye
+  },
+  cardYear: {
+    type: Number,
+    required: true
+  },
+  cardCVV:  {
+    type: Number,
+    required: true
   }
 }, {
   timestamps: true,
@@ -39,5 +49,5 @@ const bookingSchema = new mongoose.Schema({
   }
 });
 
-const Booking = mongoose.model('Booking', bookingSchema);
-module.exports = Booking;
+const Payment = mongoose.model('Payment', paymentSchema);
+module.exports = Payment;

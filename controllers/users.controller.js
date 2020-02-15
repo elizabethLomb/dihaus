@@ -3,7 +3,7 @@ const User = require('../models/user.model');
 const Comment = require('../models/comment.model');
 const Property = require('../models/property.model');
 
-//registro de usuario
+//post new user
 module.exports.register = (req, res, next) => {
   const {userType, name, lastname, birthday, email, password, bio } = req.body
   const file = req.file;
@@ -23,25 +23,21 @@ module.exports.register = (req, res, next) => {
       .catch(next)
 }
 
-//perfil del usuario
+//get user profile
 module.exports.profile = (req, res, next) => {
   User.findById(req.params.id)
+  .populate('properties')
   .populate({
-    path: 'properties',
-    populate: {
-      path: 'user'
-    },
     path: 'comments',
-      options: {
-        sort: {
-          createdAt: -1
-        }
+    options: {
+      sort: {
+        createdAt: -1
       }
+    }
   })
 
   .then(user => {
     if (user) {
-      console.log('user----->', user)
       res.json(user)
     } else {
       req.session.genericError = 'user not found'
@@ -51,6 +47,7 @@ module.exports.profile = (req, res, next) => {
   .catch(next)
 }
 
+//post- add comment toUser - fromUser
 module.exports.addComment = (req, res, next) => {
   const comment = new Comment({
     text: req.body.text,
@@ -60,18 +57,31 @@ module.exports.addComment = (req, res, next) => {
 
   comment.save()
   .then(comment => {
-    console.log('Comment ----->', comment)
     res.json(comment)
   }).catch(next)
 }
 
+//get property listings contacts history
 module.exports.inbox = (req, res, next) => {
   User.findById(req.params.id)
   .populate('contact')
 
   .then(contacts => {
-    console.log(contacts)
     res.json(contacts)
+  }).catch(next)
+}
+
+//get hauser properties and bookings & user bookings
+module.exports.bookingList = (req, res, next) => {
+  User.findById(req.params.id)
+  .populate({
+    path: 'properties',
+    populate: {
+      path: 'bookings'
+    }
+  })
+  .then(bookings => {
+    res.json(bookings)
   }).catch(next)
 }
 

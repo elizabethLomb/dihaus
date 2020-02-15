@@ -1,8 +1,9 @@
 const Property = require('../models/property.model');
 const Booking = require('../models/booking.model');
 const Contact = require('../models/contact.model');
+const User = require('../models/user.model');
 
-//crear una nueva propiedad
+//post new property
 module.exports.create = (req, res, next) => {
   const {propertyType, title, price, location, address, type, description, size, facade, comforts, state, rooms, floor, door, bathrooms, rules, conditions, availability, minPermanence, maxPermanence, energeticCertification } = req.body
   const images = req.images;
@@ -35,12 +36,19 @@ module.exports.create = (req, res, next) => {
   property.save()
 
   .then(property => {
-    console.log('property----->', property)
-    res.status(201).json(property)
+    if(currentUser.userType === 'Particular'){
+      User.findByIdAndUpdate(req.params.id, { userType: 'Hauser' }, { new: true })
+      .then(user => {
+        req.session.user = user 
+        res.status(201).json(property)
+      })
+    } else {
+      res.status(201).json(property)
+    }
   }).catch(next)
 }
 
-//list of homes by city
+//get list of homes by city
 module.exports.list = (req, res, next) => {
   const params = req.params.location
   const location = { address: { $eq: params }}
@@ -53,37 +61,48 @@ module.exports.list = (req, res, next) => {
   }).catch(next)
 }
 
-//get detail of property
+//get detail of property 
 module.exports.detail = (req, res, next) => {
   Property.findById(req.params.id)
   .populate('user')
-  // .populate({
-  //   path: 'comments',
-  //   options: {
-  //     sort: {
-  //       createdAt: -1
-  //     }
-  //   },
-  //   populate: {
-  //     path: 'user'
-  //   }
-  // })
+  .populate({
+    path: 'comments',
+    options: {
+      sort: {
+        createdAt: -1
+      }
+    },
+    populate: {
+      path: 'user'
+    },
+    path: 'bookings',
+    options: {
+      sort: {
+        createdAt: -1
+      }
+    }
+  })
   .then(property => {
     res.json(property)
   }).catch(next)
 }
 
-//resrva visita property, display rules and form
+//post resrva visita property, display rules and form
 module.exports.booking = (req, res, next) =>{
-  const booking = new Booking({...req.body, property: req.params.id})
+  //const booking = new Booking({...req.body, property: req.params.id})
+  const booking = new Booking({
+    fromUser: req.currentUser.id,
+    property: req.params.id,
+    ...req.body
+  })
   booking.save()
 
   .then(booking => {
-    console.log(booking)
     res.json(booking)
   }).catch(next)
 }
 
+//contact hauser - no reservation post
 module.exports.contact = (req, res, next) => {
   const propertyId = req.params.id
   const contact = new Contact({

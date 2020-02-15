@@ -1,6 +1,6 @@
 const userType = [
   'Particular',
-  'Agencia'
+  'Hauser'
 ];
 
 module.exports = userType;

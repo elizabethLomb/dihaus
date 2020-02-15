@@ -99,7 +99,7 @@ userSchema.methods.checkPassword = function (password) {
 }
 
 userSchema.virtual('properties', {
-  ref: 'Property',
+  ref: 'Property', //model to use
   localField: '_id',
   foreignField: 'user',
   justOne: false,
@@ -108,7 +108,7 @@ userSchema.virtual('properties', {
 userSchema.virtual('comments', {
   ref: 'Comment',
   localField: '_id',
-  foreignField: 'property',
+  foreignField: 'toUser', //donde va a estar mi id en el mod del otro
   justOne: false,
 });
 
@@ -118,6 +118,14 @@ userSchema.virtual('contact', {
   foreignField: 'property',
   justOne: false,
 });
+
+userSchema.virtual('bookings', {
+  ref: 'Booking',
+  localField: '_id',
+  foreignField: 'fromUser',
+  justOne: false,
+});
+
 
 const User = mongoose.model('User', userSchema);
 module.exports = User;
