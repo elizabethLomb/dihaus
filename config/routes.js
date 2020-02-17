@@ -27,14 +27,11 @@ router.post('/logout', authMiddleware.isAuthenticated, usersController.logout);
 //contacto usuario property
 router.post('/contact_hauser/:id', propertiesController.contact)
 
-//reservar
-router.post('/booking_id/:id', authMiddleware.isAuthenticated, propertiesController.booking)
-
 //listado reservas hauser con propiedades
 router.get('/user/:id/booking-list', usersController.bookingList);
 
-//listado reservas usuario noHauser
-// router.get('/user/:id/booking-list', usersController.bookingList);
+//reservar
+router.post('/booking_id/:id', authMiddleware.isAuthenticated, propertiesController.booking)
 
 //get user messages
 router.get('/user/inbox/:id', usersController.inbox);
