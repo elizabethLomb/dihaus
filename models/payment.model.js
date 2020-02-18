@@ -26,7 +26,7 @@ const paymentSchema = new mongoose.Schema({
   },
   cardMonth: {
     type: Number,
-    required: trye
+    required: true
   },
   cardYear: {
     type: Number,

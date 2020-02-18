@@ -11,6 +11,7 @@ const Property = require('../models/property.model');
 const User = require('../models/user.model');
 
 //constants
+const userTypes = require('../constants/userType');
 const genders = require('../constants/genders');
 const propertyTypes = require('../constants/propertyType');
 const types = require('../constants/types');
@@ -35,6 +36,7 @@ Promise.all([
   .then(() => {
     for (let i = 0; i < 20; i++) {
       const user = new User({
+        userType: userTypes[Math.floor(Math.random() * userTypes.length)],
         name: faker.name.findName(),
         lastname: faker.name.lastName(),
         ProfessionalArea: faker.name.jobArea(),
@@ -55,18 +57,20 @@ Promise.all([
           const property = new Property({
             user: user.id,
             propertyType: propertyTypes[Math.floor(Math.random() * propertyTypes.length)],
-            title: faker.lorem.text(),
+            title: faker.lorem.words(),
             price: faker.commerce.price(),
             location: {
-              coordinates: [
-                faker.address.longitude(),
-                faker.address.latitude()
-              ]
+              type: {
+                coordinates: [
+                  faker.address.longitude(),
+                  faker.address.latitude()
+                ]
+              }
             },
-            address: faker.address.streetAddress(),
+            address: faker.address.city(),
             type: types[Math.floor(Math.random() * types.length)],
             description: faker.lorem.paragraphs(),
-            size: faker.random.number(),
+            size: Math.floor(Math.random() * (1000 - 10) + 10) ,
             facade: facades[Math.floor(Math.random() * facades.length)],
             comforts: comforts[Math.floor(Math.random() * comforts.length)],
             state: states[Math.floor(Math.random() * states.length)],
@@ -99,7 +103,7 @@ Promise.all([
                 contact.save()
 
                 .then(() => {
-                  for (let l = 0; l < array.length; l++) {
+                  for (let l = 0; l < 20; l++) {
                     const comment = new Comment({
                       text: faker.lorem.words(),
                       fromUser: userIds[Math.floor(Math.random() * userIds.length)],
@@ -108,12 +112,12 @@ Promise.all([
                     comment.save()
 
                       .then(p => {
-                        for (let m = 0; m < array.length; m++) {
+                        for (let m = 0; m < 20; m++) {
                           const booking = new Booking({
                             fromUser: userIds[Math.floor(Math.random() * userIds.length)],
                             property: p.id,
                             status: 'Pendiente',
-                            date: faker.date.soon(),
+                            date: faker.date.future(),
                             time: Math.floor(Math.random() * (22 - 9) + 9) 
                           })
                           booking.save()

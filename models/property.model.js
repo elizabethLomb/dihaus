@@ -31,12 +31,12 @@ const propertySchema = new mongoose.Schema({
   },
   location: {
     type: {
-      type: String, // Don't do `{ location: { type: String } }`
-      enum: ['Point'], // 'location.type' must be 'Point'
+      type: ['Point'],
+      //enum: ['Point'],
       required: true
     },
     coordinates: {
-      type: [[[Number]]],
+      type: [Number],
       required: true
     }
   },
