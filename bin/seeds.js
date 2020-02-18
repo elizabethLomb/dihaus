@@ -1,1 +1,131 @@
-const mongoose = require('mongoose');
+require('../config/db.config');
+
+const faker = require('faker')
+
+//models
+const Booking = require('../models/booking.model');
+const Comment = require('../models/comment.model');
+const Contact = require('../models/contact.model');
+const Payment = require('../models/payment.model');
+const Property = require('../models/property.model');
+const User = require('../models/user.model');
+
+//constants
+const genders = require('../constants/genders');
+const propertyTypes = require('../constants/propertyType');
+const types = require('../constants/types');
+const facades = require('../constants/facades');
+const comforts = require('../constants/comforts');
+const states = require('../constants/states');
+const floors = require('../constants/floors');
+const doors = require('../constants/doors');
+const rules = require('../constants/rules');
+
+const userIds = []
+
+Promise.all([
+  Booking.deleteMany(),
+  Comment.deleteMany(),
+  Contact.deleteMany(),
+  Payment.deleteMany(),
+  Property.deleteMany(),
+  User.deleteMany()
+])
+
+  .then(() => {
+    for (let i = 0; i < 20; i++) {
+      const user = new User({
+        name: faker.name.findName(),
+        lastname: faker.name.lastName(),
+        ProfessionalArea: faker.name.jobArea(),
+        Gender: genders[Math.floor(Math.random() * genders.length)],
+        birthday: faker.date.past(),
+        email: faker.internet.email(),
+        password: 123456789,
+        avatar: faker.internet.avatar(),
+        bio: faker.lorem.paragraphs(),
+        validated: true
+      })
+      user.save()
+      
+      .then(user => {
+        userIds.push(user.id)
+
+        for (let j = 0; j < 20; j++) {
+          const property = new Property({
+            user: user.id,
+            propertyType: propertyTypes[Math.floor(Math.random() * propertyTypes.length)],
+            title: faker.lorem.text(),
+            price: faker.commerce.price(),
+            location: {
+              coordinates: [
+                faker.address.longitude(),
+                faker.address.latitude()
+              ]
+            },
+            address: faker.address.streetAddress(),
+            type: types[Math.floor(Math.random() * types.length)],
+            description: faker.lorem.paragraphs(),
+            size: faker.random.number(),
+            facade: facades[Math.floor(Math.random() * facades.length)],
+            comforts: comforts[Math.floor(Math.random() * comforts.length)],
+            state: states[Math.floor(Math.random() * states.length)],
+            rooms: faker.random.number(),
+            floor: floors[Math.floor(Math.random() * floors.length)],
+            door: doors[Math.floor(Math.random() * doors.length)],
+            bathrooms: faker.random.number(),
+            rules: rules[Math.floor(Math.random() * rules.length)],
+            featuredImage: faker.image.city(),
+            images: [
+              faker.random.image(),
+            ],
+            conditions: {
+              deposit: '1 Mes de Fianza',
+              availability: faker.date.future(),
+              minPermanence: '1 año',
+              maxPermanence: 'No especificado',
+              energeticCertification: 'A'
+            }
+          })
+          property.save()
+
+            .then(p => {
+              for (let k = 0; k < 20; k++) {
+                const contact = new Contact({
+                  user: userIds[Math.floor(Math.random() * userIds.length)],
+                  text: faker.lorem.words(),
+                  property: p.id
+                })
+                contact.save()
+
+                .then(() => {
+                  for (let l = 0; l < array.length; l++) {
+                    const comment = new Comment({
+                      text: faker.lorem.words(),
+                      fromUser: userIds[Math.floor(Math.random() * userIds.length)],
+                      toUser: userIds[Math.floor(Math.random() * userIds.length)],
+                    })
+                    comment.save()
+
+                      .then(p => {
+                        for (let m = 0; m < array.length; m++) {
+                          const booking = new Booking({
+                            fromUser: userIds[Math.floor(Math.random() * userIds.length)],
+                            property: p.id,
+                            status: 'Pendiente',
+                            date: faker.date.soon(),
+                            time: Math.floor(Math.random() * (22 - 9) + 9) 
+                          })
+                          booking.save()
+                        }
+                      }).catch(console.error)
+                  }
+                }).catch(console.error)
+                
+              }
+            }).catch(console.error)
+        }
+      }).catch(console.error)
+    }
+  }).catch(console.error)
+

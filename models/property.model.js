@@ -7,6 +7,7 @@ const propertyType = require('../constants/propertyType');
 const floors = require('../constants/floors');
 const doors = require('../constants/doors');
 const states = require('../constants/states');
+const facades = require('../constants/facades');
 
 const propertySchema = new mongoose.Schema({
   user: {
@@ -32,11 +33,11 @@ const propertySchema = new mongoose.Schema({
     type: {
       type: String, // Don't do `{ location: { type: String } }`
       enum: ['Point'], // 'location.type' must be 'Point'
-      //required: true
+      required: true
     },
     coordinates: {
-      type: Number,
-      //required: true
+      type: [[[Number]]],
+      required: true
     }
   },
   address: {
@@ -60,7 +61,7 @@ const propertySchema = new mongoose.Schema({
   },
   facade: {
     type: String,
-    enum: ['Interior', 'Exterior']
+    enum: facades
   },
   comforts: {
     type: [String],
@@ -100,12 +101,12 @@ const propertySchema = new mongoose.Schema({
     required: true
   },
   images: {
-    type: String,
+    type: [String],
     default: ''
   },
   conditions: {
     deposit: {
-      type: [String],
+      type: String,
       default: '1 Mes de Fianza',
       required: true
     },
