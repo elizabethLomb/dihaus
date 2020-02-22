@@ -54,6 +54,7 @@ module.exports.list = (req, res, next) => {
   const location = { city: { $eq: params }}
 
   Property.find(location)
+  .populate('user')
   .sort({ createdAt: -1 })
 
   .then(properties => {

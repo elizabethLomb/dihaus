@@ -92,6 +92,7 @@ Promise.all([
               energeticCertification: 'A'
             }
           })
+          //Math.random() * (max - min + 1) + min
           property.save()
 
             .then(p => {
