@@ -51,7 +51,7 @@ module.exports.create = (req, res, next) => {
 //get list of homes by city
 module.exports.list = (req, res, next) => {
   const params = req.params.location
-  const location = { address: { $eq: params }}
+  const location = { city: { $eq: params }}
 
   Property.find(location)
   .sort({ createdAt: -1 })
