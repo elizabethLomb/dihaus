@@ -28,7 +28,7 @@ router.post('/logout', authMiddleware.isAuthenticated, usersController.logout);
 router.post('/contact_hauser/:id', propertiesController.contact)
 
 //listado reservas hauser con propiedades
-router.get('/user/:id/booking-list', usersController.bookingList);
+router.get('/user/booking-list/:id', usersController.bookingList);
 
 //reservar
 router.post('/booking_id/:id', authMiddleware.isAuthenticated, propertiesController.booking)
@@ -40,7 +40,7 @@ router.get('/user/inbox/:id', usersController.inbox);
 router.get('/user/:id', usersController.profile);
 
 //comentario a usuario
-router.post('/user/:id/comments', usersController.addComment)
+router.post('/user/comments/:id', usersController.addComment)
 
 //detail property
 router.get('/home/:id', propertiesController.detail);

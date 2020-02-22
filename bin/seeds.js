@@ -34,7 +34,7 @@ Promise.all([
 ])
 
   .then(() => {
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 10; i++) {
       const user = new User({
         userType: userTypes[Math.floor(Math.random() * userTypes.length)],
         name: faker.name.findName(),
@@ -53,7 +53,7 @@ Promise.all([
       .then(user => {
         userIds.push(user.id)
 
-        for (let j = 0; j < 20; j++) {
+        for (let j = 0; j < 10; j++) {
           const property = new Property({
             user: user.id,
             propertyType: propertyTypes[Math.floor(Math.random() * propertyTypes.length)],
@@ -94,7 +94,7 @@ Promise.all([
           property.save()
 
             .then(p => {
-              for (let k = 0; k < 20; k++) {
+              for (let k = 0; k < 10; k++) {
                 const contact = new Contact({
                   user: userIds[Math.floor(Math.random() * userIds.length)],
                   text: faker.lorem.words(),
@@ -103,7 +103,7 @@ Promise.all([
                 contact.save()
 
                 .then(() => {
-                  for (let l = 0; l < 20; l++) {
+                  for (let l = 0; l < 10; l++) {
                     const comment = new Comment({
                       text: faker.lorem.words(),
                       fromUser: userIds[Math.floor(Math.random() * userIds.length)],
@@ -112,7 +112,7 @@ Promise.all([
                     comment.save()
 
                       .then(p => {
-                        for (let m = 0; m < 20; m++) {
+                        for (let m = 0; m < 10; m++) {
                           const booking = new Booking({
                             fromUser: userIds[Math.floor(Math.random() * userIds.length)],
                             property: p.id,
