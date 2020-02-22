@@ -1,0 +1,31 @@
+const cities = [
+  'Madrid',
+  'Barcelona',
+  'Valencia',
+  'Sevilla',
+  'Saragoza',
+  'Bilbao',
+  'Granada',
+  'Palma',
+  'Toledo',
+  'San Sebastían',
+  'Ceuta',
+  'Salamanca',
+  'Burgos',
+  'Las Palmas de Gran Canaria',
+  'Valladolid',
+  'Ávila',
+  'Alicante',
+  'Melilla',
+  'Cuenca',
+  'Cádiz',
+  'Santiago de Compostela',
+  'Cáceres',
+  'Pamplona',
+  'Gijón',
+  'Segovia',
+  'Oviedo',
+  'Tarragona'
+]
+
+module.exports = cities;

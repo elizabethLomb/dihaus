@@ -21,6 +21,7 @@ const states = require('../constants/states');
 const floors = require('../constants/floors');
 const doors = require('../constants/doors');
 const rules = require('../constants/rules');
+const cities = require('../constants/spainCities');
 
 const userIds = []
 
@@ -67,7 +68,7 @@ Promise.all([
                 ]
               }
             },
-            address: faker.address.city(),
+            city: cities[Math.floor(Math.random() * types.length)],
             type: types[Math.floor(Math.random() * types.length)],
             description: faker.lorem.paragraphs(),
             size: Math.floor(Math.random() * (1000 - 10) + 10) ,

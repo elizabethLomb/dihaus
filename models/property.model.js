@@ -40,7 +40,7 @@ const propertySchema = new mongoose.Schema({
       required: true
     }
   },
-  address: {
+  city: {
     type: String,
     required: true,
     lowercase: true
