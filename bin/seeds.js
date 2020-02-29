@@ -59,7 +59,8 @@ Promise.all([
             user: user.id,
             propertyType: propertyTypes[Math.floor(Math.random() * propertyTypes.length)],
             title: faker.lorem.words(),
-            price: faker.commerce.price(),
+            //price: faker.commerce.price(),
+            price: Math.floor(Math.random() * (1.000000 - 400) + 400),
             location: {
               type: {
                 coordinates: [
