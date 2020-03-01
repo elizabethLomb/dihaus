@@ -67,22 +67,21 @@ module.exports.detail = (req, res, next) => {
   Property.findById(req.params.id)
   .populate('user')
   .populate({
-    path: 'comments',
-    options: {
-      sort: {
-        createdAt: -1
-      }
-    },
+    path: 'user',
     populate: {
-      path: 'user'
-    },
-    path: 'bookings',
-    options: {
-      sort: {
-        createdAt: -1
+      path: 'comments',
+      options: {
+        sort: {
+          createdAt: -1
+        },
+        limit: 20
+      },
+      populate: {
+        path: 'fromUser'
       }
     }
   })
+  .populate('bookings')
   .then(property => {
     res.json(property)
   }).catch(next)
