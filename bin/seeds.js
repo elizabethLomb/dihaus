@@ -86,6 +86,7 @@ Promise.all([
             images: [
               faker.random.image(),
             ],
+            furnished: 'Si',
             conditions: {
               deposit: '1 Mes de Fianza',
               availability: faker.date.future(),

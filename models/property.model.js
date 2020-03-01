@@ -104,6 +104,11 @@ const propertySchema = new mongoose.Schema({
     type: [String],
     default: ''
   },
+  furnished: {
+    type: String,
+    enum: ['Si', 'No'],
+    required: true
+  },
   conditions: {
     deposit: {
       type: String,
