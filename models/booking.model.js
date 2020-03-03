@@ -19,13 +19,13 @@ const bookingSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    default: Date.now,
     required: [true, "Seleccione una fecha para continuar"]
-  },
-  time: {
-    type: Number,
-    required: [true, "Seleccione una hora para continuar"]
   }
+  // ,
+  // time: {
+  //   type: Number,
+  //   required: [true, "Seleccione una hora para continuar"]
+  // }
 }, {
   timestamps: true,
   toJSON: {

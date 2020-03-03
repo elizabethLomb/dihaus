@@ -33,6 +33,12 @@ module.exports.profile = (req, res, next) => {
       sort: {
         createdAt: -1
       }
+    },
+    populate: {
+      path: 'fromUser',
+      populate: {
+        path: 'properties'
+      }
     }
   })
 

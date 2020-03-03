@@ -93,7 +93,7 @@ module.exports.booking = (req, res, next) =>{
   const booking = new Booking({
     fromUser: req.currentUser.id,
     property: req.params.id,
-    ...req.body
+    date: req.body.date
   })
   booking.save()
 
@@ -105,6 +105,7 @@ module.exports.booking = (req, res, next) =>{
 //contact hauser - no reservation post
 module.exports.contact = (req, res, next) => {
   const propertyId = req.params.id
+  .populate('user')
   const contact = new Contact({
     text: req.body.text,
     user: req.currentUser.id,
