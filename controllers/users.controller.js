@@ -5,7 +5,7 @@ const Property = require('../models/property.model');
 
 //post new user
 module.exports.register = (req, res, next) => {
-  const {userType, name, lastname, birthday, email, password, bio } = req.body
+  const { userType, name, lastname, birthday, email, password, bio } = req.body
   const file = req.file;
   const user = new User({
       userType: userType,
@@ -14,7 +14,7 @@ module.exports.register = (req, res, next) => {
       birthday: birthday,
       email: email,
       password: password,
-      avatar: file ? req.file.url : null,
+      avatar: file ? req.file.url : "/logo512.png",
       bio: bio
     })
   
