@@ -85,7 +85,10 @@ module.exports.bookingList = (req, res, next) => {
     populate: {
       path: 'bookings',
       populate: {
-        path: 'fromUser'
+        path: 'fromUser',
+      },
+      populate: {
+        path: 'property'
       }
     }
   })
