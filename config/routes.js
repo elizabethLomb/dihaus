@@ -25,10 +25,10 @@ router.post('/login', authMiddleware.isNotAuthenticated, usersController.doLogin
 router.post('/logout', authMiddleware.isAuthenticated, usersController.logout);
 
 //contacto usuario property
-router.post('/contact_hauser/:id', propertiesController.contact)
+router.post('/contact_hauser/:id', authMiddleware.isAuthenticated, propertiesController.contact)
 
 //listado reservas hauser con propiedades
-router.get('/user/booking-list/:id', usersController.bookingList);
+router.get('/user/booking-list/:id', authMiddleware.isAuthenticated, usersController.bookingList);
 
 //reservar
 router.post('/booking_id/:id', authMiddleware.isAuthenticated, propertiesController.booking)
